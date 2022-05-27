@@ -22,7 +22,15 @@ class MainActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState : Bundle?)
     {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this , R.layout.activity_main)
+
+        /* Data Binding Technique - Working */
+
+        // binding = DataBindingUtil.setContentView(this , R.layout.activity_main)
+
+        /* View Binding Technique - Working */
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
         mainActivityViewModelFactory = MainActivityViewModelFactory()
         viewModel = ViewModelProvider(
             this , mainActivityViewModelFactory
