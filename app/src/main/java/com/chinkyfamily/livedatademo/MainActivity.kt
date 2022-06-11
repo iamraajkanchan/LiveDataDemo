@@ -1,5 +1,6 @@
 package com.chinkyfamily.livedatademo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -37,5 +38,19 @@ class MainActivity : AppCompatActivity()
         )[MainActivityViewModel::class.java]
         binding.mainViewModel = viewModel
         binding.lifecycleOwner = this
+    }
+
+    /**
+     * onStart callback method of the Activity.
+     * */
+    override fun onStart()
+    {
+        super.onStart()
+        binding?.btnNextScreen?.setOnClickListener {
+            Intent(this , UserInfoActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(this)
+            }
+        }
     }
 }
