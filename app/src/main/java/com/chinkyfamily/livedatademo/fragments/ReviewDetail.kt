@@ -37,9 +37,8 @@ class ReviewDetail : Fragment()
     override fun onViewCreated(view : View , savedInstanceState : Bundle?)
     {
         super.onViewCreated(view , savedInstanceState)
-        val userInfoViewModelFactory = UserInfoViewModelFactory()
         userInfoViewModel = ViewModelProvider(requireActivity() ,
-            userInfoViewModelFactory)[UserInfoViewModel::class.java]
+            UserInfoViewModelFactory())[UserInfoViewModel::class.java]
         binding.userInfoViewModel = userInfoViewModel
         binding.lifecycleOwner = this
         binding.btnExit.setOnClickListener {

@@ -39,9 +39,8 @@ class UserDetail : Fragment()
     override fun onViewCreated(view : View , savedInstanceState : Bundle?)
     {
         super.onViewCreated(view , savedInstanceState)
-        val userInfoViewModelFactory = UserInfoViewModelFactory()
         userInfoViewModel = ViewModelProvider(requireActivity() ,
-            userInfoViewModelFactory)[UserInfoViewModel::class.java]
+            UserInfoViewModelFactory())[UserInfoViewModel::class.java]
         binding?.btnNextScreen?.setOnClickListener {
             userInfoViewModel.apply {
                 updateUserName(binding?.edtUserName?.text.toString())
