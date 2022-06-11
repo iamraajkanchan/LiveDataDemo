@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.chinkyfamily.livedatademo.databinding.ActivityUserInfoBinding
 import com.chinkyfamily.livedatademo.fragments.UserDetail
 
-const val USER_DETAIL_FRAGMENT : String = "user detail fragment"
-
 /**
  * UserInfoActivity
  * */
@@ -34,5 +32,14 @@ class UserInfoActivity : AppCompatActivity()
         supportFragmentManager.beginTransaction()
             .add(R.id.fcvUserInfo , userDetailFragment , USER_DETAIL_FRAGMENT)
             .commitAllowingStateLoss()
+    }
+
+    companion object
+    {
+        /** Tag for UserDetail Fragment. */
+        const val USER_DETAIL_FRAGMENT : String = "user detail fragment"
+
+        /** Tag for ReviewDetail Fragment */
+        const val REVIEW_DETAIL_FRAGMENT : String = "review detail fragment"
     }
 }
