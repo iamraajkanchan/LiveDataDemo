@@ -22,8 +22,9 @@ class UserInfoActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         _binding = ActivityUserInfoBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fcvUserInfo , UserDetail.newInstance() , USER_DETAIL_FRAGMENT).commit()
+        supportFragmentManager.beginTransaction().add((binding?.fcvUserInfo ?: return).id ,
+            UserDetail.newInstance() ,
+            USER_DETAIL_FRAGMENT).commit()
     }
 
     companion object
