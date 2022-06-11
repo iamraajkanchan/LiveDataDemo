@@ -1,21 +1,31 @@
-package com.chinkyfamily.livedatademo;
+package com.chinkyfamily.livedatademo
 
-import android.os.Bundle;
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.chinkyfamily.livedatademo.fragments.FragmentA
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.chinkyfamily.livedatademo.fragments.FragmentA;
-
-public class TutorialActivity extends AppCompatActivity
+/**
+ * TutorialActivity
+ * */
+class TutorialActivity : AppCompatActivity()
 {
-    public static final String FRAGMENT_A = "Fragment A";
-    public static final String FRAGMENT_B = "Fragment B";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
+    /**
+     * onCreate callback method of the Activity.
+     * */
+    override fun onCreate(savedInstanceState : Bundle?)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutorial);
-        getSupportFragmentManager().beginTransaction().add(R.id.container_a, new FragmentA(), FRAGMENT_A).commit();
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_tutorial)
+        supportFragmentManager.beginTransaction().add(R.id.container_a , FragmentA() , FRAGMENT_A)
+            .commit()
+    }
+
+    companion object
+    {
+        /** Tag for Fragment_A */
+        const val FRAGMENT_A : String = "Fragment A"
+
+        /** Tag for Fragment_B */
+        const val FRAGMENT_B : String = "Fragment B"
     }
 }

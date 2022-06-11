@@ -1,60 +1,52 @@
-package com.chinkyfamily.livedatademo.fragments;
+package com.chinkyfamily.livedatademo.fragments
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.chinkyfamily.livedatademo.SharedViewModel
+import com.chinkyfamily.livedatademo.TutorialActivity
+import com.chinkyfamily.livedatademo.databinding.FragmentABinding
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
-import com.chinkyfamily.livedatademo.R;
-import com.chinkyfamily.livedatademo.SharedViewModel;
-import com.chinkyfamily.livedatademo.TutorialActivity;
-
-public class FragmentA extends Fragment
+/**
+ * FragmentA is used to insert text from User.
+ * */
+class FragmentA() : Fragment()
 {
-    private SharedViewModel viewModel;
-    private EditText editText;
+    private var viewModel : SharedViewModel? = null
+    private var _binding : FragmentABinding? = null
+    private val binding get() = _binding
+    private var container : ViewGroup? = null
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    /** onCreateView callback method of the Fragment. */
+    override fun onCreateView(
+        inflater : LayoutInflater ,
+        container : ViewGroup? ,
+        savedInstanceState : Bundle? ,
+    ) : View?
     {
-        View v = inflater.inflate(R.layout.fragment_a, container, false);
-
-        editText = v.findViewById(R.id.edit_text);
-        Button button = v.findViewById(R.id.button_ok);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                viewModel.setText(editText.getText());
-                getActivity().getSupportFragmentManager().beginTransaction().replace(container.getId(), new FragmentB(), TutorialActivity.FRAGMENT_B).addToBackStack(TutorialActivity.FRAGMENT_A).commit();
-            }
-        });
-
-        return v;
+        _binding = FragmentABinding.inflate(inflater , container , false)
+        this.container = container
+        return binding?.root
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    /** onViewCreated callback method of the Fragment. */
+    override fun onViewCreated(view : View , savedInstanceState : Bundle?)
     {
-        super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        viewModel.getText().observe(getViewLifecycleOwner(), new Observer<CharSequence>()
-        {
-            @Override
-            public void onChanged(@Nullable CharSequence charSequence)
-            {
-                editText.setText(charSequence);
-            }
-        });
+        super.onViewCreated(view , savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        (viewModel ?: return).getText().observe(viewLifecycleOwner) {
+            binding?.editText?.setText(it)
+        }
+        binding?.buttonOk?.setOnClickListener(View.OnClickListener {
+            (viewModel ?: return@OnClickListener).setText(binding?.editText?.text.toString())
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace((container ?: return@OnClickListener).id ,
+                    FragmentB() ,
+                    TutorialActivity.FRAGMENT_B)?.addToBackStack(TutorialActivity.FRAGMENT_A)
+                ?.commit()
+        })
     }
 }

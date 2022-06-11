@@ -1,20 +1,26 @@
-package com.chinkyfamily.livedatademo;
+package com.chinkyfamily.livedatademo
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-public class SharedViewModel extends ViewModel
+/**
+ * SharedViewModel is a ViewModel created for TutorialActivity.
+ * */
+class SharedViewModel : ViewModel()
 {
-    private MutableLiveData<CharSequence> text = new MutableLiveData<>();
+    private val text = MutableLiveData<String>()
 
-    public void setText(CharSequence input)
+    /**
+     * setText method is used in FragmentA
+     * */
+    fun setText(input : String)
     {
-        text.setValue(input);
+        text.value = input
     }
 
-    public LiveData<CharSequence> getText()
-    {
-        return text;
-    }
+    /**
+     * getText method is used in FragmentB
+     * */
+    fun getText() : LiveData<String> = text
 }
