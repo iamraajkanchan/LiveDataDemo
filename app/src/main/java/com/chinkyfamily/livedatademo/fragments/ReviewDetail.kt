@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.chinkyfamily.livedatademo.UserInfoViewModel
 import com.chinkyfamily.livedatademo.UserInfoViewModelFactory
-import com.chinkyfamily.livedatademo.databinding.FragmentUserDetailBinding
+import com.chinkyfamily.livedatademo.databinding.FragmentReviewDetailBinding
 
 /**
- * UserDetail Fragment to take username and mobile number from a User.
+ * ReviewDetail Fragment is used to review the details entered by a user.
  */
-class UserDetail : Fragment()
+class ReviewDetail : Fragment()
 {
-    private var _binding : FragmentUserDetailBinding? = null
+    private lateinit var _binding : FragmentReviewDetailBinding
     private val binding get() = _binding
     private lateinit var userInfoViewModel : UserInfoViewModel
 
@@ -27,7 +27,7 @@ class UserDetail : Fragment()
         super.onCreate(savedInstanceState)
         val userInfoViewModelFactory = UserInfoViewModelFactory()
         userInfoViewModel = activity.run {
-            ViewModelProvider(this@UserDetail ,
+            ViewModelProvider(this@ReviewDetail ,
                 userInfoViewModelFactory)[UserInfoViewModel::class.java]
         }
     }
@@ -36,11 +36,13 @@ class UserDetail : Fragment()
      * onCreateView callback method of the Fragment.
      * */
     override fun onCreateView(
-        inflater : LayoutInflater , container : ViewGroup? , savedInstanceState : Bundle? ,
-    ) : View?
+        inflater : LayoutInflater , container : ViewGroup? ,
+        savedInstanceState : Bundle? ,
+    ) : View
     {
-        _binding = FragmentUserDetailBinding.inflate(inflater , container , false)
-        return binding?.root
+        _binding = FragmentReviewDetailBinding.inflate(inflater , container , false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     /**
@@ -49,21 +51,19 @@ class UserDetail : Fragment()
     override fun onViewCreated(view : View , savedInstanceState : Bundle?)
     {
         super.onViewCreated(view , savedInstanceState)
-        binding?.btnNextScreen?.setOnClickListener {
-            userInfoViewModel.run {
-                updateUserName(binding?.edtUserName?.text?.toString())
-                updateUserMobileNumber(binding?.edtUserMobileNumber?.text?.toString())
-            }
+        binding.btnExit.setOnClickListener {
+            activity?.finish()
         }
+
     }
 
     companion object
     {
         /**
-         * newInstance factory method is used to create a new instance of UserDetail Fragment.
-         * @return A new instance of fragment UserDetail.
+         * newInstance is factory method to create a new instance of ReviewDetail Fragment.
+         * @return A new instance of fragment ReviewDetail.
          */
         @JvmStatic
-        fun newInstance() : UserDetail = UserDetail().apply {}
+        fun newInstance() : ReviewDetail = ReviewDetail()
     }
 }
