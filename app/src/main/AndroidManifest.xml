@@ -10,6 +10,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.LiveDataDemo">
         <activity
+                android:name=".TutorialActivity"
+                android:exported="false" />
+        <activity
                 android:name=".UserInfoActivity"
                 android:exported="false" />
         <activity

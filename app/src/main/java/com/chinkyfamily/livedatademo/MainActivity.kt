@@ -1,11 +1,9 @@
 package com.chinkyfamily.livedatademo
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.chinkyfamily.livedatademo.databinding.ActivityMainBinding
 
 /**
@@ -48,6 +46,13 @@ class MainActivity : AppCompatActivity()
         super.onStart()
         binding.btnNextScreen.setOnClickListener {
             Intent(this , UserInfoActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(this)
+            }
+        }
+
+        binding.btnTutorialScreen.setOnClickListener {
+            Intent(this , TutorialActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(this)
             }
