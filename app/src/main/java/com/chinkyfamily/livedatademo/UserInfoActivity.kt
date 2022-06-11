@@ -28,6 +28,9 @@ class UserInfoActivity : AppCompatActivity()
         /** Tag for UserDetail Fragment. */
         const val USER_DETAIL_FRAGMENT : String = "user detail fragment"
 
+        /** Tag for UserAddressDetail Fragment */
+        const val USER_ADDRESS_DETAIL : String = "user address detail fragment"
+
         /** Tag for ReviewDetail Fragment */
         const val REVIEW_DETAIL_FRAGMENT : String = "review detail fragment"
     }

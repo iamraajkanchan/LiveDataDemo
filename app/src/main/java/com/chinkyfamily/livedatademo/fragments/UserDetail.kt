@@ -48,8 +48,8 @@ class UserDetail : Fragment()
             }
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace((containerGroup ?: return@setOnClickListener).id ,
-                    ReviewDetail.newInstance() ,
-                    UserInfoActivity.REVIEW_DETAIL_FRAGMENT)
+                    UserAddressDetail.newInstance() ,
+                    UserInfoActivity.USER_ADDRESS_DETAIL)
                 ?.addToBackStack(UserInfoActivity.USER_DETAIL_FRAGMENT)?.commit()
         }
     }
