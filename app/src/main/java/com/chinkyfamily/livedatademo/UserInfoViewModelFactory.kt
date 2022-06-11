@@ -5,15 +5,15 @@ import androidx.lifecycle.ViewModelProvider
 import java.lang.IllegalArgumentException
 
 /**
- * MainActivityViewModelFactory is used to offer MainActivityViewModel to MainActivity
+ * UserInfoViewModelFactory is used to offer UserInfoViewModel to UserInfoActivity.
  * */
-class MainActivityViewModelFactory : ViewModelProvider.Factory
+class UserInfoViewModelFactory : ViewModelProvider.Factory
 {
     override fun <T : ViewModel> create(modelClass : Class<T>) : T
     {
-        if (modelClass.isAssignableFrom(MainActivityViewModel::class.java))
+        if (modelClass.isAssignableFrom(UserInfoViewModel::class.java))
         {
-            return MainActivityViewModel() as T
+            return UserInfoViewModel() as T
         }
         throw IllegalArgumentException("Local and anonymous classes can not be ViewModels")
     }
