@@ -10,9 +10,6 @@ import com.chinkyfamily.livedatademo.fragments.UserDetail
  * */
 class UserInfoActivity : AppCompatActivity()
 {
-    private var _binding : ActivityUserInfoBinding? = null
-    private val binding get() = _binding
-
     /**
      * onCreate callback method of the Activity.
      * @param savedInstanceState first parameter.
@@ -20,11 +17,10 @@ class UserInfoActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState : Bundle?)
     {
         super.onCreate(savedInstanceState)
-        _binding = ActivityUserInfoBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
-        supportFragmentManager.beginTransaction().add((binding?.fcvUserInfo ?: return).id ,
-            UserDetail.newInstance() ,
-            USER_DETAIL_FRAGMENT).commit()
+        val binding = ActivityUserInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        supportFragmentManager.beginTransaction()
+            .add(binding.fcvUserInfo.id , UserDetail.newInstance() , USER_DETAIL_FRAGMENT).commit()
     }
 
     companion object
