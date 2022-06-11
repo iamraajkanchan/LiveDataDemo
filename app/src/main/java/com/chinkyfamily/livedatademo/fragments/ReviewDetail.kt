@@ -15,9 +15,9 @@ import com.chinkyfamily.livedatademo.databinding.FragmentReviewDetailBinding
  */
 class ReviewDetail : Fragment()
 {
+    private lateinit var userInfoViewModel : UserInfoViewModel
     private lateinit var _binding : FragmentReviewDetailBinding
     private val binding get() = _binding
-    private lateinit var userInfoViewModel : UserInfoViewModel
 
     /**
      * onCreateView callback method of the Fragment.
@@ -38,16 +38,10 @@ class ReviewDetail : Fragment()
     {
         super.onViewCreated(view , savedInstanceState)
         val userInfoViewModelFactory = UserInfoViewModelFactory()
-        userInfoViewModel = activity.run {
-            ViewModelProvider(this@ReviewDetail ,
-                userInfoViewModelFactory)[UserInfoViewModel::class.java]
-        }
-        userInfoViewModel.getUserName().observe(viewLifecycleOwner) {
-            binding.tvUserMobileNumber.text = it
-        }
-        userInfoViewModel.getUserMobileNumber().observe(viewLifecycleOwner) {
-            binding.tvUserMobileNumber.text = it
-        }
+        userInfoViewModel = ViewModelProvider(requireActivity() ,
+            userInfoViewModelFactory)[UserInfoViewModel::class.java]
+        binding.userInfoViewModel = userInfoViewModel
+        binding.lifecycleOwner = this
         binding.btnExit.setOnClickListener {
             activity?.finish()
         }

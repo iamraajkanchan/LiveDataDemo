@@ -16,23 +16,10 @@ import com.chinkyfamily.livedatademo.databinding.FragmentUserDetailBinding
  */
 class UserDetail : Fragment()
 {
+    private lateinit var userInfoViewModel : UserInfoViewModel
     private var _binding : FragmentUserDetailBinding? = null
     private val binding get() = _binding
-    private lateinit var userInfoViewModel : UserInfoViewModel
     private var containerGroup : ViewGroup? = null
-
-    /**
-     * onCreate callback method of the Fragment.
-     * */
-    override fun onCreate(savedInstanceState : Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        val userInfoViewModelFactory = UserInfoViewModelFactory()
-        userInfoViewModel = activity.run {
-            ViewModelProvider(this@UserDetail ,
-                userInfoViewModelFactory)[UserInfoViewModel::class.java]
-        }
-    }
 
     /**
      * onCreateView callback method of the Fragment.
@@ -43,18 +30,27 @@ class UserDetail : Fragment()
     {
         containerGroup = container
         _binding = FragmentUserDetailBinding.inflate(inflater , container , false)
+        return binding?.root
+    }
+
+    /**
+     * onViewCreated callback method of the Fragment.
+     * */
+    override fun onViewCreated(view : View , savedInstanceState : Bundle?)
+    {
+        super.onViewCreated(view , savedInstanceState)
+        val userInfoViewModelFactory = UserInfoViewModelFactory()
+        userInfoViewModel = ViewModelProvider(requireActivity() ,
+            userInfoViewModelFactory)[UserInfoViewModel::class.java]
         binding?.btnNextScreen?.setOnClickListener {
-            userInfoViewModel.run {
-                updateUserName(binding?.edtUserName?.text?.toString())
-                updateUserMobileNumber(binding?.edtUserMobileNumber?.text?.toString())
-            }
+            userInfoViewModel.updateUserName(binding?.edtUserName?.text.toString())
+            userInfoViewModel.updateUserMobileNumber(binding?.edtUserMobileNumber?.text.toString())
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace((containerGroup ?: return@setOnClickListener).id ,
-                    ReviewDetail() ,
+                    ReviewDetail.newInstance() ,
                     UserInfoActivity.REVIEW_DETAIL_FRAGMENT)
-                ?.addToBackStack(UserInfoActivity.USER_DETAIL_FRAGMENT)?.commitAllowingStateLoss()
+                ?.addToBackStack(UserInfoActivity.USER_DETAIL_FRAGMENT)?.commit()
         }
-        return binding?.root
     }
 
     /**

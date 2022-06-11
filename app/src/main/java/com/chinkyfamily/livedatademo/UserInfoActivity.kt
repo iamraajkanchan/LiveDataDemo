@@ -23,7 +23,7 @@ class UserInfoActivity : AppCompatActivity()
         _binding = ActivityUserInfoBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         supportFragmentManager.beginTransaction()
-            .add(R.id.fcvUserInfo , UserDetail() , USER_DETAIL_FRAGMENT).commitAllowingStateLoss()
+            .add(R.id.fcvUserInfo , UserDetail.newInstance() , USER_DETAIL_FRAGMENT).commit()
     }
 
     companion object

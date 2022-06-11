@@ -20,7 +20,9 @@ class FragmentA() : Fragment()
     private val binding get() = _binding
     private var container : ViewGroup? = null
 
-    /** onCreateView callback method of the Fragment. */
+    /**
+     * onCreateView callback method of the Fragment.
+     * */
     override fun onCreateView(
         inflater : LayoutInflater ,
         container : ViewGroup? ,
@@ -32,14 +34,13 @@ class FragmentA() : Fragment()
         return binding?.root
     }
 
-    /** onViewCreated callback method of the Fragment. */
+    /**
+     * onViewCreated callback method of the Fragment.
+     * */
     override fun onViewCreated(view : View , savedInstanceState : Bundle?)
     {
         super.onViewCreated(view , savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        (viewModel ?: return).getText().observe(viewLifecycleOwner) {
-            binding?.editText?.setText(it)
-        }
         binding?.buttonOk?.setOnClickListener(View.OnClickListener {
             (viewModel ?: return@OnClickListener).setText(binding?.editText?.text.toString())
             activity?.supportFragmentManager?.beginTransaction()

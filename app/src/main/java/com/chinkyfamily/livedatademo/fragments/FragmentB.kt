@@ -42,7 +42,6 @@ class FragmentB : Fragment()
             binding?.editText?.setText(it)
         }
         binding?.buttonOk?.setOnClickListener {
-            (viewModel ?: return@setOnClickListener).setText(binding?.editText?.text.toString())
             activity?.finish()
         }
     }
