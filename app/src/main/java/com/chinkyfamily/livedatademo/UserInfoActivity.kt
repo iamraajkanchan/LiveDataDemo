@@ -2,12 +2,11 @@ package com.chinkyfamily.livedatademo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.chinkyfamily.livedatademo.databinding.ActivityUserInfoBinding
 import com.chinkyfamily.livedatademo.fragments.UserDetail
 
 /**
- * UserInfoActivity
+ * UserInfoActivity holds the Fragments of this flow
  * */
 class UserInfoActivity : AppCompatActivity()
 {
@@ -23,15 +22,8 @@ class UserInfoActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         _binding = ActivityUserInfoBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        val userInfoViewModelFactory = UserInfoViewModelFactory()
-        val userInfoViewModel =
-            ViewModelProvider(this , userInfoViewModelFactory)[UserInfoViewModel::class.java]
-        binding?.userInfoViewModel = userInfoViewModel
-        binding?.lifecycleOwner = this
-        val userDetailFragment = UserDetail.newInstance();
         supportFragmentManager.beginTransaction()
-            .add(R.id.fcvUserInfo , userDetailFragment , USER_DETAIL_FRAGMENT)
-            .commitAllowingStateLoss()
+            .add(R.id.fcvUserInfo , UserDetail() , USER_DETAIL_FRAGMENT).commitAllowingStateLoss()
     }
 
     companion object

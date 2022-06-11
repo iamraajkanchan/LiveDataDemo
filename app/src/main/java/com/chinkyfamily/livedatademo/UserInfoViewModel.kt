@@ -12,30 +12,38 @@ class UserInfoViewModel : ViewModel()
     /** Used to update user name in ViewModel. */
     private val usernameMutable : MutableLiveData<String> = MutableLiveData<String>()
 
-    /** Used to get username from ViewModel */
-    var username : LiveData<String> = usernameMutable
-
     /** Used to update user mobile number. */
     private val userMobileNumberMutable : MutableLiveData<String> = MutableLiveData<String>()
 
-    /** Used to get userMobileNumber from ViewModel */
-    var userMobileNumber : LiveData<String> = userMobileNumberMutable
+    init
+    {
+        println("UserInfoViewModel :: userNameMutable : ${getUserName().value}")
+        println("UserInfoViewModel :: userMobileNumberMutable : ${getUserMobileNumber().value}")
+    }
 
     /**
-     * updateUserName method is used in UserDetail fragment.
+     * updateUserName method is used in UserDetail Fragment.
      * @param username first parameter.
      * */
     fun updateUserName(username : String?)
     {
         usernameMutable.value = username ?: return
+        println("UserInfoViewModel :: updateUserName :: usernameMutable : ${usernameMutable.value}")
     }
 
+    /** getUserName method is used in ReviewDetail Fragment. */
+    fun getUserName() : LiveData<String> = usernameMutable
+
     /**
-     * updateUserMobileNumber method is used in UserDetail fragment.
+     * updateUserMobileNumber method is used in UserDetail Fragment.
      * @param userMobileNumber first parameter.
      * */
     fun updateUserMobileNumber(userMobileNumber : String?)
     {
         userMobileNumberMutable.value = userMobileNumber ?: return
+        println("UserInfoViewModel :: updateUserMobileNumber :: userMobileNumberMutable : ${userMobileNumberMutable.value}")
     }
+
+    /** getUserMobileNumber method is used in ReviewDetail Fragment. */
+    fun getUserMobileNumber() : LiveData<String> = userMobileNumberMutable
 }

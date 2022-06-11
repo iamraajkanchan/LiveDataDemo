@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.chinkyfamily.livedatademo.R
 import com.chinkyfamily.livedatademo.UserInfoActivity
 import com.chinkyfamily.livedatademo.UserInfoViewModel
 import com.chinkyfamily.livedatademo.UserInfoViewModelFactory
@@ -20,6 +19,7 @@ class UserDetail : Fragment()
     private var _binding : FragmentUserDetailBinding? = null
     private val binding get() = _binding
     private lateinit var userInfoViewModel : UserInfoViewModel
+    private var containerGroup : ViewGroup? = null
 
     /**
      * onCreate callback method of the Fragment.
@@ -41,25 +41,30 @@ class UserDetail : Fragment()
         inflater : LayoutInflater , container : ViewGroup? , savedInstanceState : Bundle? ,
     ) : View?
     {
+        containerGroup = container
         _binding = FragmentUserDetailBinding.inflate(inflater , container , false)
-        return binding?.root
-    }
-
-    /**
-     * onViewCreated callback method of the Fragment.
-     * */
-    override fun onViewCreated(view : View , savedInstanceState : Bundle?)
-    {
-        super.onViewCreated(view , savedInstanceState)
         binding?.btnNextScreen?.setOnClickListener {
             userInfoViewModel.run {
                 updateUserName(binding?.edtUserName?.text?.toString())
                 updateUserMobileNumber(binding?.edtUserMobileNumber?.text?.toString())
             }
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fcvUserInfo , ReviewDetail.newInstance() , "")
+                ?.replace((containerGroup ?: return@setOnClickListener).id ,
+                    ReviewDetail() ,
+                    UserInfoActivity.REVIEW_DETAIL_FRAGMENT)
                 ?.addToBackStack(UserInfoActivity.USER_DETAIL_FRAGMENT)?.commitAllowingStateLoss()
         }
+        return binding?.root
+    }
+
+    /**
+     * onResume callback method of the Fragment.
+     * */
+    override fun onResume()
+    {
+        super.onResume()
+        binding?.edtUserName?.setText("")
+        binding?.edtUserMobileNumber?.setText("")
     }
 
     companion object

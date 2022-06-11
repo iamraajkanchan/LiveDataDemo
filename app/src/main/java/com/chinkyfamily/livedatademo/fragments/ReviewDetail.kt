@@ -20,19 +20,6 @@ class ReviewDetail : Fragment()
     private lateinit var userInfoViewModel : UserInfoViewModel
 
     /**
-     * onCreate callback method of the Fragment.
-     * */
-    override fun onCreate(savedInstanceState : Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        val userInfoViewModelFactory = UserInfoViewModelFactory()
-        userInfoViewModel = activity.run {
-            ViewModelProvider(this@ReviewDetail ,
-                userInfoViewModelFactory)[UserInfoViewModel::class.java]
-        }
-    }
-
-    /**
      * onCreateView callback method of the Fragment.
      * */
     override fun onCreateView(
@@ -41,7 +28,6 @@ class ReviewDetail : Fragment()
     ) : View
     {
         _binding = FragmentReviewDetailBinding.inflate(inflater , container , false)
-        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -51,10 +37,20 @@ class ReviewDetail : Fragment()
     override fun onViewCreated(view : View , savedInstanceState : Bundle?)
     {
         super.onViewCreated(view , savedInstanceState)
+        val userInfoViewModelFactory = UserInfoViewModelFactory()
+        userInfoViewModel = activity.run {
+            ViewModelProvider(this@ReviewDetail ,
+                userInfoViewModelFactory)[UserInfoViewModel::class.java]
+        }
+        userInfoViewModel.getUserName().observe(viewLifecycleOwner) {
+            binding.tvUserMobileNumber.text = it
+        }
+        userInfoViewModel.getUserMobileNumber().observe(viewLifecycleOwner) {
+            binding.tvUserMobileNumber.text = it
+        }
         binding.btnExit.setOnClickListener {
             activity?.finish()
         }
-
     }
 
     companion object
