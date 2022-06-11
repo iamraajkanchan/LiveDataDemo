@@ -43,8 +43,10 @@ class UserDetail : Fragment()
         userInfoViewModel = ViewModelProvider(requireActivity() ,
             userInfoViewModelFactory)[UserInfoViewModel::class.java]
         binding?.btnNextScreen?.setOnClickListener {
-            userInfoViewModel.updateUserName(binding?.edtUserName?.text.toString())
-            userInfoViewModel.updateUserMobileNumber(binding?.edtUserMobileNumber?.text.toString())
+            userInfoViewModel.apply {
+                updateUserName(binding?.edtUserName?.text.toString())
+                updateUserMobileNumber(binding?.edtUserMobileNumber?.text.toString())
+            }
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace((containerGroup ?: return@setOnClickListener).id ,
                     ReviewDetail.newInstance() ,
