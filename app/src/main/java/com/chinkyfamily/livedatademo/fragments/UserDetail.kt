@@ -8,13 +8,10 @@ import android.view.ViewGroup
 import com.chinkyfamily.livedatademo.databinding.FragmentUserDetailBinding
 
 /**
- * A simple [Fragment] subclass.
- * Use the [UserDetail.newInstance] factory method to
- * create an instance of this fragment.
+ * UserDetail Fragment to take username and mobile number from a User.
  */
 class UserDetail : Fragment()
 {
-    // TODO: Rename and change types of parameters
     private var _binding : FragmentUserDetailBinding? = null
     private val binding get() = _binding
 
@@ -30,7 +27,7 @@ class UserDetail : Fragment()
      * onCreateView callback method of the Fragment.
      * */
     override fun onCreateView(
-        inflater : LayoutInflater , container : ViewGroup? , savedInstanceState : Bundle?
+        inflater : LayoutInflater , container : ViewGroup? , savedInstanceState : Bundle? ,
     ) : View?
     {
         _binding = FragmentUserDetailBinding.inflate(inflater , container , false)
@@ -42,7 +39,7 @@ class UserDetail : Fragment()
         /**
          * newInstance factory method is used to create a new instance of UserDetail Fragment.
          * @return A new instance of fragment UserDetail.
-         */ // TODO: Rename and change types and number of parameters
+         */
         @JvmStatic
         fun newInstance() : UserDetail = UserDetail().apply {}
     }

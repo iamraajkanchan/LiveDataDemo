@@ -13,7 +13,8 @@ import com.chinkyfamily.livedatademo.databinding.ActivityMainBinding
  * */
 class MainActivity : AppCompatActivity()
 {
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var _binding : ActivityMainBinding
+    private val binding get() = _binding
     private lateinit var viewModel : MainActivityViewModel
     private lateinit var mainActivityViewModelFactory : MainActivityViewModelFactory
 
@@ -29,13 +30,12 @@ class MainActivity : AppCompatActivity()
         // binding = DataBindingUtil.setContentView(this , R.layout.activity_main)
 
         /* View Binding Technique - Working */
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         mainActivityViewModelFactory = MainActivityViewModelFactory()
-        viewModel = ViewModelProvider(
-            this , mainActivityViewModelFactory
-        )[MainActivityViewModel::class.java]
+        viewModel = ViewModelProvider(this ,
+            mainActivityViewModelFactory)[MainActivityViewModel::class.java]
         binding.mainViewModel = viewModel
         binding.lifecycleOwner = this
     }
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity()
     override fun onStart()
     {
         super.onStart()
-        binding?.btnNextScreen?.setOnClickListener {
+        binding.btnNextScreen.setOnClickListener {
             Intent(this , UserInfoActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(this)
