@@ -6,7 +6,7 @@
     <data>
 
         <variable
-                name="myViewModel"
+                name="mainViewModel"
                 type="com.chinkyfamily.livedatademo.MainActivityViewModel" />
     </data>
 
@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
-                android:text="@{String.valueOf(myViewModel.totalCount)}"
+                android:text="@{String.valueOf(mainViewModel.totalCount)}"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:onClick="@{() -> myViewModel.updateTotal()}"
+                android:onClick="@{() -> mainViewModel.updateTotal()}"
                 android:text="Add"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:onClick="@{() -> myViewModel.updateTotal()}"
+                android:onClick="@{() -> mainViewModel.updateTotal()}"
                 android:text="Next Screen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
